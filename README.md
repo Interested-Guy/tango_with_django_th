@@ -1,5 +1,5 @@
 # tango_with_django_th
-An implementation of the Tango_With_Django website.
+An implementation of the Tango_With_Django website
 whose description is provided in the link below.
 https://www.tangowithdjango.com/
 
