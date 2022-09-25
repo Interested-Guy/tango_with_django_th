@@ -1,9 +1,9 @@
 # tango_with_django_th
-An implementation of the Tango_With_Django website
+This is an implementation of the Tango_With_Django website
 whose description is provided in the link below.
 https://www.tangowithdjango.com/
 
 The link to my implementation
 https://roger123.pythonanywhere.com/
 
-View the website in computer/desktop mode of mobile.
+View the website in a computer or desktop mode of mobile.
