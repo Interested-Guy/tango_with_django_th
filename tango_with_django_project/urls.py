@@ -29,6 +29,10 @@ urlpatterns = [
     re_path(r'^rango/', include('rango.urls')),
     re_path(r'^accounts/register/$',MyRegistrationView.as_view(),name='registration_register'),
     re_path(r'^accounts/', include('registration.backends.simple.urls')),
+    re_path(r'^dummy/', views.dummy, name='dummy'),
+    re_path(r'^clear/', views.clear, name='clear'),
+    re_path(r'^graph/', views.graph, name='graph'),
+    re_path(r'^fetch_data/', views.fetch_data, name='fetch_data'),
     path('admin/', admin.site.urls),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
