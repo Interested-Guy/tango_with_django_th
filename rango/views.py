@@ -8,9 +8,12 @@ from rango.forms import UserForm, UserProfileForm
 from django.contrib.auth.models import User
 from registration.backends.simple.views import RegistrationView
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
 from datetime import datetime
+from django.views.decorators.csrf import csrf_exempt
+import json
+values=[]
 # Create your views here.
 def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)
@@ -274,3 +277,31 @@ def list_profiles(request):
 #    user_list = User.objects.all()
     userprofile_list = UserProfile.objects.all()
     return render(request, 'rango/list_profiles.html', { 'userprofile_list' : userprofile_list})
+
+@csrf_exempt
+def dummy(request):
+    global values
+    d={}
+    d['y']=float(request.body.decode().split(':')[1].lstrip())
+    d['x']=str(datetime.now())
+    #can store d in a file.
+    values.append(d)
+    return HttpResponse("Data inserted!")
+
+@csrf_exempt
+def clear(request):
+    global values
+    confirmation=json.loads(request.body.decode())['clear_authorized']
+    if(confirmation=='Yes'):
+        values.clear()
+        return HttpResponse("Data cleared!")
+    else:
+        return HttpResponse("Unauthorized!")
+
+@csrf_exempt
+def fetch_data(request):
+    global values
+    return JsonResponse({"data":values})
+
+def graph(request):
+    return render(request,'rango/graph.html')
