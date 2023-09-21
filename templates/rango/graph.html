@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script>
+function clear_data(){
+fetch("https://roger123.pythonanywhere.com/clear/",{
+method:"POST",
+body:JSON.stringify({"clear_authorized":"Yes"})})
+.then((response) => response.text())
+.then((text) => {
+    console.log(text);});
+}
+window.onload = function () {
+var dps = [];
+var chart = new CanvasJS.Chart("chartContainer", {
+	exportEnabled: true,
+	title :{
+		text: "Light Sensor Plot"
+	},
+	data: [{
+		type: "spline",
+		xValueType: "dateTime",
+		markerSize: 0,
+		dataPoints: dps
+	}]
+});
+
+
+var updateInterval = 1000;
+var dataLength = 50;
+
+function convert_to_datetime(data){
+	for(var i=0;i<data.length;i++){
+		data[i]['x']=new Date(data[i]['x'])
+	}
+	return data;
+}
+
+var updateChart = function (xval,yval) {
+	dps.push({
+			x: xval,
+			y: yval
+		});
+	if (dps.length > dataLength) {
+		dps.shift();
+	}
+	chart.render();
+};
+
+function iterate_data(data){
+	for(var i=0;i<data.length;i++){
+		var xval=data[i]['x'];
+		var yval=data[i]['y'];
+		updateChart(xval,yval);
+	}
+}
+function query(){
+var xhttp;
+xhttp = new XMLHttpRequest();
+xhttp.onload = function() {
+	data=JSON.parse(this.response)['data'];
+	if(dps.length===0 && data.length!=0){
+    data=convert_to_datetime(data);
+	iterate_data(data);
+	}
+	else{
+		if(data.length>dps.length){
+		data=convert_to_datetime(data.slice(dps.length,data.length));
+		iterate_data(data);
+		}
+	}
+
+    };
+xhttp.open("GET", "https://roger123.pythonanywhere.com/fetch_data/", true);
+xhttp.send();
+setTimeout(query,500);
+}
+
+setTimeout(query,500);
+}
+</script>
+</head>
+<body>
+<h1>Light Sensor Plot. Start the mobile app to see the output here.</h1>
+<div id="chartContainer" style="height: 370px; width:100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<br><br>
+<center>To stop the graph, stop the mobile app and click on "clear data" to clear the current data.</center>
+<center><button onclick="clear_data()">Clear Data</button></center>
+</body>
+</html>
