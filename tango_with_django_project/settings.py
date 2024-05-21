@@ -24,9 +24,9 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = 'django-insecure-udo*d(*zq5pe_xh)5u4+&7z!35)jgw=0j0!-)8uysqv5mi!ss@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['roger123.pythonanywhere.com']
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rango',
     'registration',
+    'predict_score'
 ]
 
 MIDDLEWARE = [
