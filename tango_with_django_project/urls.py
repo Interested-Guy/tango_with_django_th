@@ -17,6 +17,7 @@ from registration.backends.simple.views import RegistrationView
 from django.contrib import admin
 from django.urls import path, include
 from rango import views
+from predict_score import views as pviews
 from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import re_path
@@ -33,6 +34,7 @@ urlpatterns = [
     re_path(r'^clear/', views.clear, name='clear'),
     re_path(r'^graph/', views.graph, name='graph'),
     re_path(r'^fetch_data/', views.fetch_data, name='fetch_data'),
+    re_path(r'^score_prediction/', include('predict_score.urls')),
     path('admin/', admin.site.urls),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
