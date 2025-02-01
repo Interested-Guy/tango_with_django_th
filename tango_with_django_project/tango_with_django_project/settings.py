@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-1@x$1ccovrfa-tkkxl+u5q8+nd%fnbvpvefn@265r3ch^-8ex=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # If True, users can register.
 REGISTRATION_OPEN = True
