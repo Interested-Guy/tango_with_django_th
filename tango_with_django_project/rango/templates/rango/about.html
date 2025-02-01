@@ -1,0 +1,36 @@
+{% extends 'rango/base.html' %}
+{% load static %}
+{% block title_block %}
+About
+{% endblock %}
+{% block body_block %}
+<div class="container-fluid py-3">
+	<div class="row bg-light rounded-3">
+		<h1 class="display-5 fw-bold">Rango says...</h1>
+		<p class="col-md-8 fs-4 py-3">
+			Here is the About page! <br />
+			This tutorial has been put together by Leif and David.<br/>
+			This page has been visited: {{visits}} times.
+		</p>		
+	</div>
+	<button class="btn btn-primary" onclick="alert('You clicked the button using inline JavaScript.');">
+		Click me - I run on vanilla JavaScript!
+	</button>
+	<button class="btn btn-primary" id="about-btn">
+		Click me - I'm using JQuery!
+	</button>
+	<p>This is some text for the JQuery example.</p>
+	<div id="msg">Hello! I'm a further example for JQuery testing.</div>
+	 <div class="row py-5">
+		 <div class="col-md-6">
+               <img src="{% static 'images/rango.jpg' %}"
+	                 alt="Picture of Rango." />
+		</div>
+		<div class="col-md-6">
+					<img src="{% get_media_prefix %}cat.jpg"
+	                 alt="Picture of a Cat." />
+		</div>
+	</div>
+</div>
+
+{% endblock %}
